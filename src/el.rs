@@ -631,6 +631,26 @@ where
     }
 }
 
+#[cfg(feature = "bytemuck")]
+unsafe impl<C, M, A, G> bytemuck::Zeroable for Pix3<C, M, A, G>
+where
+    C: bytemuck::Zeroable + Channel,
+    M: ColorModel,
+    A: Alpha,
+    G: Gamma,
+{
+}
+
+#[cfg(feature = "bytemuck")]
+unsafe impl<C, M, A, G> bytemuck::Pod for Pix3<C, M, A, G>
+where
+    C: bytemuck::Pod + Channel,
+    M: ColorModel,
+    A: Alpha,
+    G: Gamma,
+{
+}
+
 /// [Pixel] with four [channel]s in its [color model].
 ///
 /// [channel]: ../chan/trait.Channel.html

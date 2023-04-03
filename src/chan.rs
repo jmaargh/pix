@@ -177,6 +177,7 @@ pub trait Channel:
 /// assert_eq!(c, Ch32::MAX);
 /// ```
 #[derive(Clone, Copy, Debug, Default, PartialEq, Eq, PartialOrd, Ord)]
+#[repr(transparent)]
 pub struct Ch8(u8);
 
 /// 16-bit color [Channel](trait.Channel.html).
@@ -271,6 +272,12 @@ impl Channel for Ch8 {
         Self::new(r as u8)
     }
 }
+
+#[cfg(feature = "bytemuck")]
+unsafe impl bytemuck::Zeroable for Ch8 {}
+
+#[cfg(feature = "bytemuck")]
+unsafe impl bytemuck::Pod for Ch8 {}
 
 /// Scale an i32 value by a u8 (for lerp)
 #[inline]
